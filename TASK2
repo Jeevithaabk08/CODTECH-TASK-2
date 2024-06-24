@@ -1,0 +1,84 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class StudentGrades {
+
+    static class Grade {
+        String subject;
+        double score;
+
+        Grade(String subject, double score) {
+            this.subject = subject;
+            this.score = score;
+        }
+    }
+
+    public static double calculateAverage(ArrayList<Grade> grades) {
+        double sum = 0;
+        for (Grade grade : grades) {
+            sum += grade.score;
+        }
+        return sum / grades.size();
+    }
+
+    public static String getLetterGrade(double average) {
+        if (average >= 90) {
+            return "A";
+        } else if (average >= 80) {
+            return "B";
+        } else if (average >= 70) {
+            return "C";
+        } else if (average >= 60) {
+            return "D";
+        } else {
+            return "F";
+        }
+    }
+
+    public static double getGPA(double average) {
+        if (average >= 90) {
+            return 4.0;
+        } else if (average >= 80) {
+            return 3.0;
+        } else if (average >= 70) {
+            return 2.0;
+        } else if (average >= 60) {
+            return 1.0;
+        } else {
+            return 0.0;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Grade> grades = new ArrayList<>();
+
+        System.out.println("Enter grades for different subjects. Type 'done' when finished.");
+
+        while (true) {
+            System.out.print("Enter subject: ");
+            String subject = scanner.nextLine();
+            if (subject.equalsIgnoreCase("done")) {
+                break;
+            }
+
+            System.out.print("Enter score: ");
+            double score = scanner.nextDouble();
+            scanner.nextLine();
+
+            grades.add(new Grade(subject, score));
+        }
+
+        if (grades.size() == 0) {
+            System.out.println("No grades entered.");
+        } else {
+            double average = calculateAverage(grades);
+            String letterGrade = getLetterGrade(average);
+            double gpa = getGPA(average);
+
+            System.out.println("Average Score: " + average);
+            System.out.println("Letter Grade: " + letterGrade);
+            System.out.println("GPA: " + gpa);
+        }
+    }
+}
